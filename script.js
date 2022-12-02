@@ -1,22 +1,18 @@
-let employees = [
-    {
-        first: 'Malik',
-        last: 'Ibrahim',
-        id: '7634',
-        title: 'Bartender',
-        salary: '80000'
-    }
-];
+let employees = [];
 
 $(document).ready(onReady);
-
+ 
+// jQuery ready function
 function onReady() {
     render();
     $('body').on('click', "#submitButton", submitEmp);
+    $('body').on('click', ".removeButton", deleteEmp);
 }
 
+// function for submitting a new employee to table
 function submitEmp() {
     
+    // setting inputs to new values in the employees array
     let newFirst = $('#empFirstName').val();
     let newLast = $('#empLastName').val();
     let newNumber = $('#idNumber').val();
@@ -33,6 +29,7 @@ function submitEmp() {
 
     employees.push(newEmployee);
     render();
+    calculateMonthlyCost();
 
     // clear input fields
     $('#empFirstName').val('');
@@ -41,9 +38,51 @@ function submitEmp() {
     $('#jobTitle').val('');
     $('#annualSalary').val('');
 
+    // after employee is added, added employee monthly salary to total monthly cost
+    
+
 } 
 
+// function to calculate total monthly cost
+function calculateMonthlyCost(){
+    let sum = 0;
+
+    // for loop to iterate through employee array and adding up annual salary with each iteration
+    for(let i = 0; i < employees.length; i++){
+        sum += Number(employees[i].salary);
+    }
+
+    // turning total annual salary into monthly salary (just dividing by 12)
+    let monthlyCost = (sum / 12);
+
+    // getting total monthly cost and rounded to 2 decimal places to reflect money amount
+    monthlyCost = (Math.round(monthlyCost * 100) / 100).toFixed(2);
+
+    // placing total monthly cost into the DOM dynamically by targeting that span id
+    $('#totalMonthly').text(monthlyCost);
+
+}
+
 function deleteEmp() {
+    let buttonClicked = $(this);
+    let nameData = buttonClicked.siblings();
+    let nameText = nameData.text();
+
+    console.log(nameText);
+
+    let empToNotDelete = [];
+
+    for (let employee of employees) {
+        if (nameText !== employee.name) {
+            empToNotDelete.push(employee);
+        }
+    }
+
+    employees = empToNotDelete;
+
+    console.log(employees);
+    
+    render();
 
 }
 
@@ -54,12 +93,12 @@ function render() {
     for (let i = 0; i < employees.length; i++) {
         $('#empData').append(`
             <tr>
-                <td>${employees[i].first}</td>
+                <td class="nameData">${employees[i].first}</td>
                 <td>${employees[i].last}</td>
                 <td>${employees[i].id}</td>
                 <td>${employees[i].title}</td>
                 <td>${employees[i].salary}</td>
-                <td><button class="removeButton"">Remove</button></td>
+                <td><button class="removeButton">Remove</button></td>
             </tr>
         `)
     }
