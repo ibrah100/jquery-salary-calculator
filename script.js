@@ -64,25 +64,29 @@ function calculateMonthlyCost(){
 }
 
 function deleteEmp() {
-    let buttonClicked = $(this);
-    let nameData = buttonClicked.siblings();
-    let nameText = nameData.text();
+    
+    // traversing through siblings to get to the unique ID number to be removed
+    let employeeIdMatch = $(this).parent().prev().prev().prev().text();
 
-    console.log(nameText);
+    console.log("Unique ID to delete is: " + employeeIdMatch);
 
+    // looping through employees array to find any employees that don't match the unique Id above
+    // then adding those employees to an array that won't be deleted
     let empToNotDelete = [];
 
     for (let employee of employees) {
-        if (nameText !== employee.name) {
+        if (employeeIdMatch !== employee.id) {
             empToNotDelete.push(employee);
         }
     }
 
     employees = empToNotDelete;
-
-    console.log(employees);
     
+    // re-rendering employees list and updating monthly cost number
+    calculateMonthlyCost();
     render();
+
+
 
 }
 
@@ -93,9 +97,9 @@ function render() {
     for (let i = 0; i < employees.length; i++) {
         $('#empData').append(`
             <tr>
-                <td class="nameData">${employees[i].first}</td>
+                <td>${employees[i].first}</td>
                 <td>${employees[i].last}</td>
-                <td>${employees[i].id}</td>
+                <td class="idData">${employees[i].id}</td>
                 <td>${employees[i].title}</td>
                 <td>${employees[i].salary}</td>
                 <td><button class="removeButton">Remove</button></td>

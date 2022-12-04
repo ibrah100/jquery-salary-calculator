@@ -1,9 +1,8 @@
 # Project Name
 
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
+JQuery Salary Calculator
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
+Goal was to create a salary calculator that added employees to a table of employees with various attributes such as first name, last name, ID number, job title, and annual salary. I then calculated the monthly cost of maintaining these employees by taking by taking their annual salary, dividing it by 12, and then adding them up to determine the monthly cost. Also, if a employee were to be removed, the monthly cost would go down as well and update as needed.
 
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
