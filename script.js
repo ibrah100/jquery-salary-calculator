@@ -59,8 +59,16 @@ function calculateMonthlyCost(){
     // getting total monthly cost and rounded to 2 decimal places to reflect money amount
     monthlyCost = (Math.round(monthlyCost * 100) / 100).toFixed(2);
 
+    // monthly cost number turns red if more than $20,000
+    if(monthlyCost > 20000){
+        $('h2').addClass("problem");    
+    } else {
+        $('h2').removeClass("problem");    
+    }
+
+    $('#totalMonthly').text(monthlyCost); 
     // placing total monthly cost into the DOM dynamically by targeting that span id
-    $('#totalMonthly').text(monthlyCost);
+   
 
 }
 
@@ -103,7 +111,7 @@ function render() {
                 <td>${employees[i].last}</td>
                 <td class="idData">${employees[i].id}</td>
                 <td>${employees[i].title}</td>
-                <td>${employees[i].salary}</td>
+                <td>$${employees[i].salary}</td>
                 <td><button class="removeButton">Remove</button></td>
             </tr>
         `)
