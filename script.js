@@ -26,7 +26,8 @@ function submitEmp() {
         title: newTitle,
         salary: newSalary
     }
-
+    
+    // after employee is added, added employee monthly salary to total monthly cost
     employees.push(newEmployee);
     render();
     calculateMonthlyCost();
@@ -38,7 +39,7 @@ function submitEmp() {
     $('#jobTitle').val('');
     $('#annualSalary').val('');
 
-    // after employee is added, added employee monthly salary to total monthly cost
+    
     
 
 } 
@@ -64,6 +65,7 @@ function calculateMonthlyCost(){
 }
 
 function deleteEmp() {
+
     
     // traversing through siblings to get to the unique ID number to be removed
     let employeeIdMatch = $(this).parent().prev().prev().prev().text();
